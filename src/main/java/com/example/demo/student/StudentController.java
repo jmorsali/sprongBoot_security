@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,12 +20,16 @@ public class StudentController {
     );
 
     @GetMapping(path = "{studentId}")
-    public Student getStudent(@PathVariable("studentId") Integer studentId) {
-        return STUDENTS.stream()
+    public Student getStudent(
+            @PathVariable("studentId") Integer studentId,
+            Principal principal) {
+        var firstStudent= STUDENTS.stream()
                 .filter(student -> studentId.equals(student.getStudentId()))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException(
                         "Student " + studentId + " does not exists"
                 ));
+        firstStudent.setDescription(principal.getName() + "----");
+        return firstStudent;
     }
 }

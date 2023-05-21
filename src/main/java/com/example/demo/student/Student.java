@@ -4,7 +4,7 @@ public class Student {
 
     private final Integer studentId;
     private final String studentName;
-
+    private  String studentDescription;
     public Student(Integer studentId,
                    String studentName) {
         this.studentId = studentId;
@@ -17,5 +17,12 @@ public class Student {
 
     public String getStudentName() {
         return studentName;
+    }
+
+    public String getDescription() {
+        return studentDescription;
+    }
+    public void setDescription(String description) {
+         studentDescription=description;
     }
 }
