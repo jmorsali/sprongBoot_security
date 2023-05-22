@@ -23,13 +23,15 @@ public class StudentController {
     public Student getStudent(
             @PathVariable("studentId") Integer studentId,
             Principal principal) {
-        var firstStudent= STUDENTS.stream()
+        var firstStudent = STUDENTS.stream()
                 .filter(student -> studentId.equals(student.getStudentId()))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException(
                         "Student " + studentId + " does not exists"
                 ));
-        firstStudent.setDescription(principal.getName() + "----");
+
+        if (principal != null)
+            firstStudent.setDescription(principal.getName() + "----");
         return firstStudent;
     }
 }
